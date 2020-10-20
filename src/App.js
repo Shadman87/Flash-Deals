@@ -5,15 +5,23 @@ import './App.css';
 
 //Importing Components
 import Home from './components/Home';
+import Navbar from './components/Navbar';
+import DealCreate from './components/DealCreate';
 
 //Importing from React Router Dom
 import {BrowserRouter as Router, Route} from "react-router-dom"; 
 
 function App() {
   return (
-    <Router>
-      <Route path="/" exact component={Home} />
-    </Router>
+    <div>
+      <Router>
+        <div>
+          <Navbar />
+          <Route path="/" exact component={Home} />
+          <Route path="/deals/new" exact component={DealCreate} />
+        </div>
+      </Router>
+    </div>
   );
 }
 

@@ -1,20 +1,20 @@
-import React, {Fragment} from "react"; 
+import React from "react"; 
 
 
 import "../App.css"; 
 
-const Home = () => {
-  return (
-    <Fragment>
-      <div className="home">
-        <h1 className="text-center">Flash Deals</h1>
+class Home extends React.Component {
+  //States 
 
-        <div>
-          <h2 className="text-center">List of all items</h2>
-        </div>
-      </div>
-    </Fragment>
-  );
+  //Life Cycle Methods
+
+  //Authenticating Users 
+  render() {
+    return (
+      <div>Home Component</div>
+    )
+  }
+  
 }
 
 export default Home; 

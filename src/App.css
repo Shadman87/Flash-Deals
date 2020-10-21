@@ -4,6 +4,7 @@ body {
   font-family: "Montserrat", sans-serif;
 }
 
+/******** Navbar ******/
 .navbar-brand {
   font-size: 1.5rem;
 }
@@ -20,3 +21,18 @@ li {
   text-decoration: none !important;
   background-color: #555;
 }
+/******** Navbar ******/
+
+/******** Home.js *****/
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 150px;
+  border: 1px solid gray;
+}
+
+/******** Home.js *****/

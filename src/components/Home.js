@@ -1,20 +1,47 @@
-import React from "react"; 
+import React, {useState, useEffect} from "react"; 
 
 
 import "../App.css"; 
+ 
+import "firebase/firestore"; 
+import fireConfig from "../firebaseConfig/config";
 
-class Home extends React.Component {
+const Home = () => {
   //States 
+  const [deals, setDeals] = useState([]); 
 
-  //Life Cycle Methods
-
-  //Authenticating Users 
-  render() {
-    return (
-      <div>Home Component</div>
-    )
-  }
+  //Use Effect
+  useEffect (() => {
+    let firestore = fireConfig.firestore(); 
+    const fetchDeals = async () =>{
+      const data = await firestore
+                          .collection("Deals")
+                          .get(); 
+      console.log(data.docs); 
+      setDeals(data.docs);
+    };
+    fetchDeals(); 
+  }, []);
   
+  return (
+    
+    <div className="container">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+        
+        {deals.map(doc => (
+          <div key={doc.id} className="col mb-4">
+            <div className="card">
+              <img src="https://dummyimage.com/600x400/000/fff.jpg" className="card-img-top" alt=""/>
+              <div className="card-body">
+                <h5 className="card-title">{doc.data().title}</h5>
+                <p className="card-text">{doc.data().message}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ); 
 }
 
 export default Home; 

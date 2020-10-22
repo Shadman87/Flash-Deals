@@ -31,7 +31,7 @@ const Home = () => {
         {deals.map(doc => (
           <div key={doc.id} className="col mt-5 mb-4">
             <div className="card">
-              <img src="https://dummyimage.com/600x400/000/fff.jpg" className="card-img-top" alt=""/>
+              <img src={doc.data().imageUrl} className="card-img-top" alt=""/>
               <div className="card-body">
                 <h5 className="card-title">{doc.data().title}</h5>
                 <p className="card-text">{doc.data().message}</p>

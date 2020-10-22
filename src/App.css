@@ -25,6 +25,9 @@ li {
 
 /******** Home.js *****/
 
+img {
+  max-height: 150px;
+}
 .card-body {
   display: flex;
   flex-direction: column;
@@ -36,3 +39,16 @@ li {
 }
 
 /******** Home.js *****/
+
+/********* DealCreate.js *******/
+
+.add-form {
+  width: 50%;
+  border: 1px solid #ededed;
+  border-radius: 10px;
+  padding: 30px 30px;
+  background-color: #ededed;
+  margin: 30px auto;
+}
+
+/********* DealCreate.js *******/

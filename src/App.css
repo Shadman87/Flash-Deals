@@ -38,6 +38,10 @@ img {
   border: 1px solid gray;
 }
 
+.btn-div {
+  display: flex;
+  gap: 10px;
+}
 /******** Home.js *****/
 
 /********* DealCreate.js *******/

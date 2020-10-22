@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Navbar from './components/Navbar';
 import DealCreate from './components/DealCreate';
 import DealEdit from './components/DealEdit'; 
+import DealDelete from './components/DealDelete'; 
 
 //Importing from React Router Dom
 import {BrowserRouter as Router, Route} from "react-router-dom"; 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" exact component={Home} />
           <Route path="/deals/new" exact component={DealCreate} />
           <Route path="/deals/edit/:id" exact component={DealEdit} />
+          <Route path="/deals/delete/:id" exact component={DealDelete} />
         </div>
       </Router>
     </div>

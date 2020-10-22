@@ -22,12 +22,6 @@ const Home = () => {
     };
     fetchDeals(); 
   }, []);
-  /*
-  const editBtn = (id) => {
-    localStorage.setItem("id", id); 
-    window.location.assign('/deals/edit');
-  }
-  */
   
   return (
     
@@ -41,10 +35,16 @@ const Home = () => {
               <div className="card-body">
                 <h5 className="card-title">{doc.data().title}</h5>
                 <p className="card-text">{doc.data().message}</p>
-                <button 
-                  className="btn btn-outline-info btn-sm" >
-                  <Link to={`/deals/edit/${doc.data().id}`} className="btn-link">Edit</Link>
-                </button>
+                <div className="btn-div">
+                  <button 
+                    className="btn btn-outline-info btn-sm" >
+                    <Link to={`/deals/edit/${doc.data().id}`} className="btn-link">Edit</Link>
+                  </button>
+                  <button 
+                    className="btn btn-outline-danger btn-sm" >
+                    <Link to={`/deals/delete/${doc.data().id}`} className="btn-link">Delete</Link>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

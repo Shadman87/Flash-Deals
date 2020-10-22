@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React from 'react'; 
 import firebase from 'firebase';
 import fireConfig from '../firebaseConfig/config';
 
@@ -14,7 +14,8 @@ class DealEdit extends React.Component {
   }
   getData() {
 
-    const id = localStorage.getItem("id"); 
+    //const id = localStorage.getItem("id"); 
+    const id = this.props.match.params.id; 
     console.log(id); 
      
     let firestore = fireConfig.firestore(); 
@@ -46,8 +47,9 @@ class DealEdit extends React.Component {
     const dateTime = date + " " + time; 
     const dateInMilli = Date.parse(dateTime);
 
-    const id = localStorage.getItem("id"); 
-    localStorage.removeItem("id");
+    //const id = localStorage.getItem("id"); 
+    //localStorage.removeItem("id");
+    const id = this.props.match.params.id; 
     console.log(id); 
 
     console.log(category);

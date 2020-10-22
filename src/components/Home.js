@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react"; 
-
+import { Link } from 'react-router-dom';
 
 import "../App.css"; 
  
@@ -22,11 +22,12 @@ const Home = () => {
     };
     fetchDeals(); 
   }, []);
-
+  /*
   const editBtn = (id) => {
     localStorage.setItem("id", id); 
     window.location.assign('/deals/edit');
   }
+  */
   
   return (
     
@@ -40,7 +41,10 @@ const Home = () => {
               <div className="card-body">
                 <h5 className="card-title">{doc.data().title}</h5>
                 <p className="card-text">{doc.data().message}</p>
-                <button className="btn btn-outline-info btn-sm" onClick={() => editBtn(doc.data().id)}>Edit</button>
+                <button 
+                  className="btn btn-outline-info btn-sm" >
+                  <Link to={`/deals/edit/${doc.data().id}`} className="btn-link">Edit</Link>
+                </button>
               </div>
             </div>
           </div>

@@ -2,14 +2,16 @@ import firebase from "firebase/app";
 import "firebase/firestore"; 
 
 var firebaseConfig = {
-  apiKey: "AIzaSyAvfE58c4sJoyZxDus6zSxXcC1ZDfK6SI4",
-  authDomain: "flash-deals-project.firebaseapp.com",
-  databaseURL: "https://flash-deals-project.firebaseio.com",
-  projectId: "flash-deals-project",
-  storageBucket: "flash-deals-project.appspot.com",
-  messagingSenderId: "783644832170",
-  appId: "1:783644832170:web:5ce66afa314bf48b2b7bd3"
+  apiKey: "AIzaSyCnYOg4zDjFMn5y6og81EwIadHbxgSLJCI",
+  authDomain: "flash-deals-app.firebaseapp.com",
+  databaseURL: "https://flash-deals-app.firebaseio.com",
+  projectId: "flash-deals-app",
+  storageBucket: "flash-deals-app.appspot.com",
+  messagingSenderId: "165307310724",
+  appId: "1:165307310724:web:4a05d1bc61e4e6fc98d8d1",
+  measurementId: "G-D9RE5Y6PHD"
 };
+
 // Initialize Firebase
 const fireConfig = firebase.initializeApp(firebaseConfig); 
 

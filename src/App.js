@@ -7,6 +7,7 @@ import './App.css';
 import Home from './components/Home';
 import Navbar from './components/Navbar';
 import DealCreate from './components/DealCreate';
+import DealEdit from './components/DealEdit'; 
 
 //Importing from React Router Dom
 import {BrowserRouter as Router, Route} from "react-router-dom"; 
@@ -19,6 +20,7 @@ function App() {
           <Navbar />
           <Route path="/" exact component={Home} />
           <Route path="/deals/new" exact component={DealCreate} />
+          <Route path="/deals/edit" exact component={DealEdit} />
         </div>
       </Router>
     </div>

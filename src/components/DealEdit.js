@@ -1,8 +1,4 @@
-import React from 'react'; 
-
-
-import "../App.css"
-
+import React, { useState, useEffect } from 'react'; 
 import firebase from 'firebase';
 import fireConfig from '../firebaseConfig/config';
 
@@ -10,10 +6,34 @@ import fireConfig from '../firebaseConfig/config';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import "./../App.css";
 
-class DealCreate extends React.Component {
+class DealEdit extends React.Component {
+  componentDidMount () {
+    this.getData(); 
+  }
+  getData() {
 
-  addDeal = (e) => {
+    const id = localStorage.getItem("id"); 
+    console.log(id); 
+     
+    let firestore = fireConfig.firestore(); 
+    firestore
+      .collection("Deals")
+      .doc(id)
+      .get()
+      .then((doc) => {
+        this.title.value = doc.data().title; 
+        this.message.value = doc.data().message;
+        this.category.value = doc.data().category; 
+        this.date.value = doc.data().date; 
+        this.time.value = doc.data().time;
+      })
+      .catch((error) => {
+        console.log(error);
+      });  
+  }
+  updateDeal = (e) => {
     e.preventDefault(); 
 
     const title = this.title.value; 
@@ -26,8 +46,8 @@ class DealCreate extends React.Component {
     const dateTime = date + " " + time; 
     const dateInMilli = Date.parse(dateTime);
 
-    var d = new Date(); 
-    var id = Date.parse(d).toString();
+    const id = localStorage.getItem("id"); 
+    localStorage.removeItem("id");
     console.log(id); 
 
     console.log(category);
@@ -54,7 +74,7 @@ class DealCreate extends React.Component {
         firestore
           .collection("Deals")
           .doc(id)
-          .set({
+          .update({
             id: id, 
             title: title, 
             message: message, 
@@ -67,7 +87,7 @@ class DealCreate extends React.Component {
           .then(() => {
             MySwal.fire({
               icon: "success",
-              title: "Data Saved!",
+              title: "Data Updated!",
               confirmButtonText: "Okay",
             })
             .then(() => {
@@ -79,15 +99,42 @@ class DealCreate extends React.Component {
           }); 
       });
     } else {
-      console.log("Image needs to be selected!");
-      window.location.reload(); 
+      firestore
+          .collection("Deals")
+          .doc(id)
+          .update({
+            id: id, 
+            title: title, 
+            message: message,    
+            category: category,
+            date: date, 
+            time: time, 
+            dateInMilli: dateInMilli
+          })
+          .then(() => {
+            MySwal.fire({
+              icon: "success",
+              title: "Data Updated!",
+              confirmButtonText: "Okay",
+            })
+            .then(() => {
+              window.location.assign('/');
+            });
+          })
+          .catch((error) => {
+            console.log(error); 
+          });
     } 
     //Resetting the form 
     this.title.value = ''; 
     this.message.value = ''; 
     this.imageFile.value = '';
+    this.category.value = ''; 
+    this.date.value = ''; 
+    this.time.value = '';
 
   }
+
   render () {
     return (
       <div className="add-form container">
@@ -151,10 +198,12 @@ class DealCreate extends React.Component {
               ref={input => this.time = input}
             />
           </div>
-          <button type="submit" className="btn btn-info">Add Deal</button>
+          <button type="submit" className="btn btn-info" onClick={this.updateDeal}>Update Deal</button>
         </form>
       </div>
-    ); 
+      
+    );
   }
-}; 
-export default DealCreate; 
+}
+
+export default DealEdit; 

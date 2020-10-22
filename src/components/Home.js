@@ -29,7 +29,7 @@ const Home = () => {
       <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
         
         {deals.map(doc => (
-          <div key={doc.id} className="col mb-4">
+          <div key={doc.id} className="col mt-5 mb-4">
             <div className="card">
               <img src="https://dummyimage.com/600x400/000/fff.jpg" className="card-img-top" alt=""/>
               <div className="card-body">

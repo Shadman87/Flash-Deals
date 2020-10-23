@@ -42,6 +42,10 @@ img {
   display: flex;
   gap: 10px;
 }
+.fa-trash,
+.fa-edit {
+  color: blue;
+}
 /******** Home.js *****/
 
 /********* DealCreate.js *******/

@@ -69,8 +69,8 @@ class DealDelete extends React.Component {
     return (
       <div className="text-center container">
         <h3 className="text-center">Are you sure to delete this deal?</h3>
-        <button className="btn btn-danger btn-lg" onClick={this.deleteBtn}>Delete</button>
-        <button className="btn btn-primary btn-lg" onClick={this.backBtn}>Take me back!</button>
+        <button className="btn btn-danger btn-lg mr-3" onClick={this.deleteBtn}>Delete</button>
+        <button className="btn btn-primary btn-lg ml-3" onClick={this.backBtn}>Take me back!</button>
       </div>
     ); 
   }

@@ -35,15 +35,13 @@ const Home = () => {
               <div className="card-body">
                 <h5 className="card-title">{doc.data().title}</h5>
                 <p className="card-text">{doc.data().message}</p>
-                <div className="btn-div">
-                  <button 
-                    className="btn btn-outline-info btn-sm" >
-                    <Link to={`/deals/edit/${doc.data().id}`} className="btn-link">Edit</Link>
-                  </button>
-                  <button 
-                    className="btn btn-outline-danger btn-sm" >
-                    <Link to={`/deals/delete/${doc.data().id}`} className="btn-link">Delete</Link>
-                  </button>
+                <div className="btn-div"> 
+                  <Link to={`/deals/edit/${doc.data().id}`} className="btn-link">
+                    <i className="fa fa-edit"></i>
+                  </Link>
+                  <Link to={`/deals/delete/${doc.data().id}`} className="btn-link">
+                    <i className="fa fa-trash"></i>
+                  </Link>
                 </div>
               </div>
             </div>

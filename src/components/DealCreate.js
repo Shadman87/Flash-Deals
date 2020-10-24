@@ -1,93 +1,42 @@
 import React from 'react'; 
-
-
 import "../App.css"
-
-import firebase from 'firebase';
-import fireConfig from '../firebaseConfig/config';
-
-//Importing SweetAlert
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-
+import firestoreSetData from '../api/firestoreSetData';
 
 class DealCreate extends React.Component {
 
   addDeal = (e) => {
     e.preventDefault(); 
-
+    
     const title = this.title.value; 
     const message = this.message.value; 
     const imageFile = this.imageFile.files[0];
     const category = this.category.value; 
     const date = this.date.value; 
-    const time = this.time.value; 
-    
+    const time = this.time.value;  
     const dateTime = date + " " + time; 
     const dateInMilli = Date.parse(dateTime);
 
+    //Generating ID;
     var d = new Date(); 
     var id = Date.parse(d).toString();
-    console.log(id); 
 
-    console.log(category);
-    if(title === '' || message === '') {
+    if(title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
       alert("Form can't be empty"); 
-      window.location.reload();
-    } 
-    //Uploading to Firestore
-    let firestore = fireConfig.firestore(); 
-    const ref = firebase.storage().ref();
-
-    const MySwal = withReactContent(Swal);
-
-    if (imageFile) {
-      var fileName = id; 
-
-      const metadata = {
-          contentType: imageFile.type,
-      };
-      const task = ref.child(fileName).put(imageFile, metadata);
-      task.then((snapshot) => snapshot.ref.getDownloadURL()).then((url) => {
-        //alert("Image Upload Successful");
-        console.log(url); 
-        firestore
-          .collection("Deals")
-          .doc(id)
-          .set({
-            id: id, 
-            title: title, 
-            message: message, 
-            imageUrl: url, 
-            category: category,
-            date: date, 
-            time: time, 
-            dateInMilli: dateInMilli
-          })
-          .then(() => {
-            MySwal.fire({
-              icon: "success",
-              title: "Data Saved!",
-              confirmButtonText: "Okay",
-            })
-            .then(() => {
-              window.location.assign('/');
-            });
-          })
-          .catch((error) => {
-            console.log(error); 
-          }); 
-      });
     } else {
-      console.log("Image needs to be selected!");
-      window.location.reload(); 
-    } 
-    //Resetting the form 
+      firestoreSetData(id, title, message, imageFile, category, date, time, dateInMilli)
+      this.formReset(); 
+    }
+     
+  }
+  formReset() {
     this.title.value = ''; 
     this.message.value = ''; 
     this.imageFile.value = '';
-
+    this.category.value = ''; 
+    this.date.value = ''; 
+    this.time.value = '';
   }
+  
   render () {
     return (
       <div className="add-form container">
@@ -143,7 +92,7 @@ class DealCreate extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="time">Date:</label>
+            <label htmlFor="time">Time:</label>
             <input 
               type="time"
               name="time"

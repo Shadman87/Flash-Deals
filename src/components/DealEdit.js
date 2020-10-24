@@ -1,12 +1,7 @@
 import React from 'react'; 
-import firebase from 'firebase';
-import fireConfig from '../firebaseConfig/config';
-
-//Importing SweetAlert
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-
 import "./../App.css";
+import firestoreUpdateData from '../api/firestoreUpdateData';
+import firestoreGetDoc from '../api/firestoreGetDoc';
 
 class DealEdit extends React.Component {
   componentDidMount () {
@@ -17,13 +12,9 @@ class DealEdit extends React.Component {
     //const id = localStorage.getItem("id"); 
     const id = this.props.match.params.id; 
     console.log(id); 
-     
-    let firestore = fireConfig.firestore(); 
-    firestore
-      .collection("Deals")
-      .doc(id)
-      .get()
-      .then((doc) => {
+      
+    const promise = firestoreGetDoc(id); 
+    promise.then((doc) => {
         this.title.value = doc.data().title; 
         this.message.value = doc.data().message;
         this.category.value = doc.data().category; 
@@ -42,91 +33,18 @@ class DealEdit extends React.Component {
     const imageFile = this.imageFile.files[0];
     const category = this.category.value; 
     const date = this.date.value; 
-    const time = this.time.value; 
-    
+    const time = this.time.value;  
     const dateTime = date + " " + time; 
     const dateInMilli = Date.parse(dateTime);
-
-    //const id = localStorage.getItem("id"); 
-    //localStorage.removeItem("id");
+    //Id from the URL 
     const id = this.props.match.params.id; 
-    console.log(id); 
-
-    console.log(category);
-    if(title === '' || message === '') {
+    
+    if(title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
       alert("Form can't be empty"); 
-      window.location.reload();
-    } 
-    //Uploading to Firestore
-    let firestore = fireConfig.firestore(); 
-    const ref = firebase.storage().ref();
-
-    const MySwal = withReactContent(Swal);
-
-    if (imageFile) {
-      var fileName = id; 
-
-      const metadata = {
-          contentType: imageFile.type,
-      };
-      const task = ref.child(fileName).put(imageFile, metadata);
-      task.then((snapshot) => snapshot.ref.getDownloadURL()).then((url) => {
-        //alert("Image Upload Successful");
-        console.log(url); 
-        firestore
-          .collection("Deals")
-          .doc(id)
-          .update({
-            id: id, 
-            title: title, 
-            message: message, 
-            imageUrl: url, 
-            category: category,
-            date: date, 
-            time: time, 
-            dateInMilli: dateInMilli
-          })
-          .then(() => {
-            MySwal.fire({
-              icon: "success",
-              title: "Data Updated!",
-              confirmButtonText: "Okay",
-            })
-            .then(() => {
-              window.location.assign('/');
-            });
-          })
-          .catch((error) => {
-            console.log(error); 
-          }); 
-      });
     } else {
-      firestore
-          .collection("Deals")
-          .doc(id)
-          .update({
-            id: id, 
-            title: title, 
-            message: message,    
-            category: category,
-            date: date, 
-            time: time, 
-            dateInMilli: dateInMilli
-          })
-          .then(() => {
-            MySwal.fire({
-              icon: "success",
-              title: "Data Updated!",
-              confirmButtonText: "Okay",
-            })
-            .then(() => {
-              window.location.assign('/');
-            });
-          })
-          .catch((error) => {
-            console.log(error); 
-          });
-    } 
+      firestoreUpdateData(id, title, message, imageFile, category, date, time, dateInMilli)
+      this.formReset(); 
+    }
     //Resetting the form 
     this.title.value = ''; 
     this.message.value = ''; 
@@ -135,6 +53,14 @@ class DealEdit extends React.Component {
     this.date.value = ''; 
     this.time.value = '';
 
+  }
+  formReset() {
+    this.title.value = ''; 
+    this.message.value = ''; 
+    this.imageFile.value = '';
+    this.category.value = ''; 
+    this.date.value = ''; 
+    this.time.value = '';
   }
 
   render () {

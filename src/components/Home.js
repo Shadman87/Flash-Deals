@@ -5,14 +5,12 @@ import "../App.css";
 
 import firestoreGetData from "../api/firestoreGetData";
 
-
 const Home = () => {
   //States 
   const [deals, setDeals] = useState([]); 
 
   //Use Effect
-  useEffect (() => {
-    
+  useEffect (() => {    
     const fetchDeals = async () =>{
       //Getting data from firestore. 
       const data = await firestoreGetData(); 

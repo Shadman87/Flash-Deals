@@ -1,7 +1,5 @@
-import "firebase/firestore"; 
-import fireConfig from "../firebaseConfig/config";
+import firestore from './firestore';
 
-let firestore = fireConfig.firestore(); 
 export default () => {
     return firestore.collection("Deals").get();
 }

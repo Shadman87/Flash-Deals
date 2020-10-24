@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import "../App.css"; 
 
 import firestoreGetData from "../api/firestoreGetData";
+import firestoreDeleteData from "../api/firestoreDeleteData";
 
 const Home = () => {
   //States 
@@ -18,6 +19,11 @@ const Home = () => {
     };
     fetchDeals(); 
   }, []);
+
+  const deleteBtnClick = (id) => {
+    console.log("deleteButton clicked!", id);
+    firestoreDeleteData(id);
+  }
   
   return (
     
@@ -34,9 +40,9 @@ const Home = () => {
                   <Link to={`/deals/edit/${doc.data().id}`} className="btn-link">
                     <i className="fa fa-edit"></i>
                   </Link>
-                  <Link to={`/deals/delete/${doc.data().id}`} className="btn-link">
+                  <span onClick={() => deleteBtnClick(doc.data().id)}>
                     <i className="fa fa-trash"></i>
-                  </Link>
+                  </span>
                 </div>
               </div>
             </div>

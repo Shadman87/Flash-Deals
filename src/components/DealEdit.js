@@ -8,11 +8,10 @@ class DealEdit extends React.Component {
     this.getData(); 
   }
   getData() {
-
     //const id = localStorage.getItem("id"); 
     const id = this.props.match.params.id; 
     console.log(id); 
-      
+    
     const promise = firestoreGetDoc(id); 
     promise.then((doc) => {
         this.title.value = doc.data().title; 

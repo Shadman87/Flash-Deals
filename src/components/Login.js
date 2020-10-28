@@ -1,6 +1,8 @@
 import React from 'react'; 
 
-import "../App.css"
+import "../App.css"; 
+
+import firebaseLogin from '../api/firebaseLogin';
 
 class Login extends React.Component {
   login = (e) => {
@@ -12,7 +14,7 @@ class Login extends React.Component {
     if(email === '' || password === '') {
       alert("Email or Password can't be empty"); 
     } else {
-      //firebaseLogin(email, password);
+      firebaseLogin(email, password);
       console.log(email);
       this.formReset(); 
     }

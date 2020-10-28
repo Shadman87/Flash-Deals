@@ -5,6 +5,7 @@ import "../App.css";
 
 import firestoreGetData from "../api/firestoreGetData";
 import firestoreDeleteData from "../api/firestoreDeleteData";
+import authListener from "../api/authListener"; 
 
 const Home = () => {
   //States 
@@ -18,6 +19,7 @@ const Home = () => {
       setDeals(data.docs);
     };
     fetchDeals(); 
+    authListener(); 
   }, []);
 
   const deleteBtnClick = (id) => {

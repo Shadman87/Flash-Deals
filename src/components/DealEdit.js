@@ -1,5 +1,8 @@
 import React from 'react'; 
 import "./../App.css";
+
+import Navbar from './Navbar';
+
 import firestoreUpdateData from '../api/firestoreUpdateData';
 import firestoreGetDoc from '../api/firestoreGetDoc';
 import authListener from '../api/authListener';
@@ -66,7 +69,9 @@ class DealEdit extends React.Component {
 
   render () {
     return (
-      <div className="add-form container">
+      <div>
+        <Navbar />
+        <div className="add-form container">
         <form onSubmit={this.addDeal}>
           <div className="form-group">
             <label htmlFor="title">Title: </label>
@@ -130,7 +135,7 @@ class DealEdit extends React.Component {
           <button type="submit" className="btn btn-info" onClick={this.updateDeal}>Update Deal</button>
         </form>
       </div>
-      
+      </div>
     );
   }
 }

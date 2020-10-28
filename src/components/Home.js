@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"; 
 import { Link } from 'react-router-dom';
+import Navbar from './Navbar';
 
 import "../App.css"; 
 
@@ -10,7 +11,6 @@ import authListener from "../api/authListener";
 const Home = () => {
   //States 
   const [deals, setDeals] = useState([]); 
-
   //Use Effect
   useEffect (() => {    
     const fetchDeals = async () =>{
@@ -28,9 +28,10 @@ const Home = () => {
   }
   
   return (
-    
-    <div className="container">
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+    <div>
+      <Navbar />
+      <div className="container">
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
         {deals.map(doc => (
           <div key={doc.id} className="col mt-5 mb-4">
             <div className="card">
@@ -50,6 +51,7 @@ const Home = () => {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   ); 

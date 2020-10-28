@@ -17,7 +17,9 @@ const Navbar = () => {
           <div>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <Link to="/deals/new" className="link">Add Deal</Link>
+                <button className="btn btn-sm btn-primary">
+                  <Link to="/deals/new" className="link">Add Deal</Link>
+                </button>
               </li>
               <li className="nav-item">
                 <button className="btn btn-sm btn-danger" onClick={() => logout()}>Logout</button>

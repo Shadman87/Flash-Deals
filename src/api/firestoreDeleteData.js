@@ -14,7 +14,7 @@ export default (id) => {
     title: "Are you sure?",
     text: "You won't be able to revert this!",
     icon: "warning",
-    showCancelButton: true,
+    showCancelButton: true, 
     confirmButtonText: "Yes, delete it!",
     cancelButtonText: "No, cancel!",
     confirmButtonColor: "#d33",

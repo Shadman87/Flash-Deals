@@ -17,7 +17,7 @@ const Navbar = () => {
           <div>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item">
-                <button className="btn btn-sm btn-primary">
+                <button className="btn btn-sm btn-dark">
                   <Link to="/deals/new" className="link">Add Deal</Link>
                 </button>
               </li>

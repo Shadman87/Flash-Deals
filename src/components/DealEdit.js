@@ -2,9 +2,11 @@ import React from 'react';
 import "./../App.css";
 import firestoreUpdateData from '../api/firestoreUpdateData';
 import firestoreGetDoc from '../api/firestoreGetDoc';
+import authListener from '../api/authListener';
 
 class DealEdit extends React.Component {
   componentDidMount () {
+    authListener(); 
     this.getData(); 
   }
   getData() {

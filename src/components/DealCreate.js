@@ -1,8 +1,12 @@
 import React from 'react'; 
 import "../App.css"
 import firestoreSetData from '../api/firestoreSetData';
+import authListener from '../api/authListener';
 
 class DealCreate extends React.Component {
+  componentDidMount () {
+    authListener(); 
+  }
 
   addDeal = (e) => {
     e.preventDefault(); 

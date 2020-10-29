@@ -47,37 +47,19 @@ img {
   position: absolute;
   top: 8px;
   left: 16px;
-  background-color: #cb0098;
-  color: white;
+  background-color: white;
+  color: #cb0098;
   padding: 10px 10px 5px 10px;
   border-radius: 10px;
 }
-.deleteBtn-block {
-  position: absolute;
-  top: 8px;
-  right: 16px;
-}
-.message-block {
-  position: absolute;
-  height: 50px;
-  top: 60px;
-  left: 16px;
-  background-color: #5a1eb9;
-  color: white;
-  padding: 2px 5px;
-  border-radius: 10px;
-}
 
-.message-block p {
-  margin-top: 10px;
-}
 .deleteBtn-block {
   position: absolute;
   top: 8px;
   right: 16px;
-  background-color: #cb0098;
+  background-color: red;
   color: white;
-  padding: 5px;
+  padding: 1px 5px 1px 5px;
   border-radius: 5px;
 }
 .fa-trash {

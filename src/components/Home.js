@@ -47,10 +47,6 @@ const Home = () => {
                     <div className="title-block">
                       <h6>{doc.data().title}</h6>
                     </div>
-                    
-                    <div className="message-block">
-                      <p>{doc.data().message}</p>
-                    </div>
                     <div className="deleteBtn-block" onClick={() => deleteBtnClick(doc.id)}>
                       <i className="fa fa-trash"/>
                     </div>

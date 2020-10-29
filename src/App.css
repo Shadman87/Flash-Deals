@@ -24,10 +24,20 @@ li {
 /******** Navbar ******/
 
 /******** Home.js *****/
+.loader {
+  height: 100%;
+  margin-top: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .card {
   height: 300px;
-  border: none;
   cursor: pointer;
+  border: none;
+  background-color: #ededed;
+  border-radius: 20px;
+  box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.5);
   transition: 0.5s ease-in-out;
 }
 .card:hover {
@@ -35,14 +45,14 @@ li {
   box-shadow: 6px 5px 15px 7px rgba(0, 0, 0, 0.84);
 }
 
-.card-content {
-  position: relative;
-}
 img {
   height: 300px;
   object-fit: cover;
   width: 100%;
+  border: none;
+  border-radius: 20px;
 }
+
 .title-block {
   position: absolute;
   top: 8px;

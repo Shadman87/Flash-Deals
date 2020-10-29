@@ -15,7 +15,7 @@ li {
 .link {
   margin-top: auto;
   color: white !important;
-  transition: 0.5s ease-in-out;
+  transition: 2s ease-in-out;
 }
 .link:hover {
   text-decoration: none !important;
@@ -25,25 +25,63 @@ li {
 
 /******** Home.js *****/
 .card {
-  width: 350px;
+  height: 300px;
+  border: none;
+  cursor: pointer;
+  transition: 0.5s ease-in-out;
+}
+.card:hover {
+  -webkit-box-shadow: 6px 5px 15px 7px rgba(0, 0, 0, 0.84);
+  box-shadow: 6px 5px 15px 7px rgba(0, 0, 0, 0.84);
 }
 
 .card-content {
   position: relative;
 }
 img {
-  max-height: 200px;
+  height: 300px;
+  object-fit: cover;
   width: 100%;
 }
-.text-block {
+.title-block {
   position: absolute;
   top: 8px;
   left: 16px;
-  background-color: blue;
+  background-color: #cb0098;
   color: white;
   padding: 10px 10px 5px 10px;
   border-radius: 10px;
 }
+.deleteBtn-block {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+.message-block {
+  position: absolute;
+  height: 50px;
+  top: 60px;
+  left: 16px;
+  background-color: #5a1eb9;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 10px;
+}
+
+.message-block p {
+  margin-top: 10px;
+}
+.timer-block {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #cb0098;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .card-body {
   display: flex;
   flex-direction: column;
@@ -60,7 +98,9 @@ img {
 }
 .fa-trash,
 .fa-edit {
-  color: #00f;
+  color: #cb0098;
+  font-size: 25px;
+  cursor: pointer;
 }
 /******** Home.js *****/
 

@@ -47,11 +47,12 @@ const Home = () => {
                     <div className="title-block">
                       <h6>{doc.data().title}</h6>
                     </div>
-                    <div className="deletBtn-block">
-                      <i className="fa fa-trash"/>
-                    </div>
+                    
                     <div className="message-block">
                       <p>{doc.data().message}</p>
+                    </div>
+                    <div className="deleteBtn-block" onClick={() => deleteBtnClick(doc.id)}>
+                      <i className="fa fa-trash"/>
                     </div>
                     <div className="timer-block">
                       <Countdown date={doc.data().date} time={doc.data().time} />

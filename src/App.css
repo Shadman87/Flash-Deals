@@ -71,6 +71,20 @@ img {
 .message-block p {
   margin-top: 10px;
 }
+.deleteBtn-block {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+  background-color: #cb0098;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.fa-trash {
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+}
 .timer-block {
   position: absolute;
   top: 90%;
@@ -96,12 +110,7 @@ img {
   display: flex;
   gap: 10px;
 }
-.fa-trash,
-.fa-edit {
-  color: #cb0098;
-  font-size: 25px;
-  cursor: pointer;
-}
+
 /******** Home.js *****/
 
 /********* DealCreate.js *******/

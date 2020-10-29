@@ -27,7 +27,7 @@ class DealCreate extends React.Component {
     var d = new Date(); 
     var id = Date.parse(d).toString();
 
-    if(title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
+    if(!imageFile || title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
       alert("Form can't be empty"); 
     } else {
       firestoreSetData(id, title, message, imageFile, category, date, time, dateInMilli)

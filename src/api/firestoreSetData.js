@@ -48,7 +48,7 @@ export default (id, title, message, imageFile, category, date, time, dateInMilli
         }); 
     });
   } else {
-    console.log("Image needs to be selected!");
+    alert("Image needs to be selected!");
     window.location.reload(); 
   } 
 }

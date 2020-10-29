@@ -17,6 +17,9 @@ class Countdown extends React.Component {
 
       // Find the distance between now and the count down date
       const distance = countDownDate - now;
+      if(distance < 1) {
+        clearInterval(this.interval);
+      }
     
       // Time calculations for days, hours, minutes and seconds
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -37,17 +40,24 @@ class Countdown extends React.Component {
 
   render() {
     const { days, hours, minutes, seconds } = this.state; 
-
-    return (
-      <div>
-        <div className="countdown-wrapper">
-          <div className="countdown-item">
-            {days} : {hours} : {minutes} : {seconds}
+    if(minutes > 0 && seconds > 0) {
+      return (
+        <div>
+          <div className="countdown-wrapper">
+            <div className="countdown-item">
+              { }
+              {days} : {hours} : {minutes} : {seconds}
+            </div>
+            
           </div>
-          
         </div>
-      </div>
-    ); 
+      ); 
+    }
+    else {
+      return (
+        <div>Time Up</div>
+      )
+    }
   }
 }
 

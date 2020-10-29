@@ -1,16 +1,17 @@
 import firebase from 'firebase';
 import firestore from './firestore';
+import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners';
 
 //Importing SweetAlert
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content"; 
 
 export default (id, title, message, imageFile, category, date, time, dateInMilli) => {
-  //Uploading to Firestore
-  const ref = firebase.storage().ref();
-
+  
   const MySwal = withReactContent(Swal);
-
+  MySwal.showLoading();
+  const ref = firebase.storage().ref();
+  //Uploading to Firestore
   if (imageFile) {
     var fileName = id;
     const metadata = {
@@ -19,7 +20,8 @@ export default (id, title, message, imageFile, category, date, time, dateInMilli
     const task = ref.child(fileName).put(imageFile, metadata);
     task.then((snapshot) => snapshot.ref.getDownloadURL()).then((url) => {
       //alert("Image Upload Successful");
-      console.log(url); 
+      console.log(url);
+      
       firestore
         .collection("Deals")
         .doc(id)

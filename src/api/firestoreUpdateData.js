@@ -8,6 +8,7 @@ import withReactContent from "sweetalert2-react-content";
 export default (id, title, message, imageFile, category, date, time, dateInMilli) => {
   const ref = firebase.storage().ref();
   const MySwal = withReactContent(Swal);
+  MySwal.showLoading();
   if (imageFile) {
     var fileName = id; 
     const metadata = {

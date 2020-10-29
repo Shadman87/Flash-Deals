@@ -22,7 +22,9 @@ export default (id) => {
     reverseButtons: true,
   })
   .then((result) => {
+    
     if (result.value) {
+      
       firestore
       .collection("Deals")
       .doc(id)
@@ -32,6 +34,7 @@ export default (id) => {
         deleteImageFromStorage(imageUrl);
       })
       .then(() => {
+        MySwal.showLoading();
         firestore
           .collection("Deals")
           .doc(id)

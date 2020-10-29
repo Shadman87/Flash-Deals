@@ -1,6 +1,7 @@
 import React from 'react'; 
 import "../App.css"; 
 
+
 import Navbar from './Navbar';
 
 import firestoreSetData from '../api/firestoreSetData';
@@ -30,6 +31,7 @@ class DealCreate extends React.Component {
     if(!imageFile || title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
       alert("Form can't be empty"); 
     } else {
+      
       firestoreSetData(id, title, message, imageFile, category, date, time, dateInMilli)
       this.formReset(); 
     }

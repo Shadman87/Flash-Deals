@@ -18,8 +18,12 @@ const Navbar = () => {
             <img src={logo} alt="Logo" className="logo-navbar"/>
             Flash Deals
           </Link>
-          <div>
+          <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
+
+            </ul>
+            <ul className="navbar-nav">
+              
               <li className="nav-item">
                 <button className="btn btn-sm add-deal-btn">
                   <Link to="/deals/new" className="link ">Add Deal</Link>

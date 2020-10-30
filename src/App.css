@@ -100,20 +100,20 @@ img {
   background-color: white;
   color: black;
   font-weight: 700;
-  padding: 4px 4px 0px 4px;
-  border-radius: 10px;
+  padding: 4px 6px 0px 6px;
+  border-radius: 5px;
 }
 .title-block h6 {
   font-weight: 600;
 }
 .category-block {
   position: absolute;
-  top: 60px;
+  top: 45px;
   left: 16px;
   background-color: white;
   color: black;
-  padding: 4px 4px 0px 4px;
-  border-radius: 10px;
+  padding: 4px 6px 0px 6px;
+  border-radius: 5px;
 }
 .category-block h6 {
   font-weight: 600;
@@ -141,7 +141,7 @@ img {
   background-color: #cb0098;
   color: white;
   padding: 3px 4px 1px 4px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .card-body {
@@ -157,6 +157,12 @@ img {
 .btn-div {
   display: flex;
   gap: 10px;
+}
+.search-div {
+  width: 40%;
+}
+.search-div input {
+  border: 1px solid #5a1eb9;
 }
 
 /******** Home.js *****/
@@ -204,7 +210,7 @@ img {
 /******Login.js ******/
 .form-div {
   margin: 50px auto;
-  background-color: #ddd;
+  background-color: #d9c8f4;
   padding: 30px;
   width: 40%;
   border-radius: 10%;

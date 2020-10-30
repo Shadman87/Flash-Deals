@@ -18,6 +18,7 @@ const Home = () => {
   //States 
   const [deals, setDeals] = useState([]); 
   const [loading, setLoading] = useState(true); 
+  const [search, setSearch] = useState(''); 
   //Use Effect
   useEffect (() => {    
     const fetchDeals = async () =>{
@@ -34,6 +35,11 @@ const Home = () => {
     console.log("deleteButton clicked!", id);
     firestoreDeleteData(id);
   }
+  
+  const filteredDeals = deals.filter(deal => {
+    return (deal.data().title.toLowerCase().includes(search.toLowerCase()) ||
+            deal.data().category.toLowerCase().includes(search.toLowerCase()));
+  })
   if(loading) {
     return (
       <div>
@@ -48,8 +54,16 @@ const Home = () => {
       <div>
         <Navbar />
         <div className="container">
+          <div className="search-div mt-3">
+            <input 
+              class="form-control mr-sm-2" 
+              type="search" 
+              placeholder="Search" 
+              onChange={e => setSearch(e.target.value)}
+              />
+          </div>
           <div className="row mb-5">
-            {deals.map(doc => (
+            {filteredDeals.map(doc => (
               <div key={doc.id} className="col-md-4 mt-5">
                 <Link to={`/deals/edit/${doc.id}`}>
                   <div className="card">  

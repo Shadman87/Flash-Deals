@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 import firestore from './firestore';
-import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners';
 
 //Importing SweetAlert
 import Swal from "sweetalert2";

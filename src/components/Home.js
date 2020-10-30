@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"; 
 import { Link } from 'react-router-dom';
 
-import { BounceLoader, BarLoader, BeatLoader } from 'react-spinners';
+import { BounceLoader } from 'react-spinners';
 
 //Importing Components
 import Navbar from './Navbar';
@@ -57,6 +57,9 @@ const Home = () => {
                       <img src={doc.data().imageUrl} className="card-img-top" alt=""/>
                       <div className="title-block">
                         <h6>{doc.data().title}</h6>
+                      </div>
+                      <div className="category-block">
+                        <h6>{doc.data().category}</h6>
                       </div>
                       <div className="deleteBtn-block" onClick={() => deleteBtnClick(doc.id)}>
                         <i className="fa fa-trash"/>

@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&display=swap");
 body {
   font-family: "Montserrat", sans-serif;
 }
@@ -58,9 +57,25 @@ img {
   top: 8px;
   left: 16px;
   background-color: white;
-  color: #cb0098;
+  color: black;
+  font-weight: 700;
   padding: 10px 10px 5px 10px;
   border-radius: 10px;
+}
+.title-block h6 {
+  font-weight: 600;
+}
+.category-block {
+  position: absolute;
+  top: 60px;
+  left: 16px;
+  background-color: white;
+  color: black;
+  padding: 10px 10px 5px 10px;
+  border-radius: 10px;
+}
+.category-block h6 {
+  font-weight: 600;
 }
 
 .deleteBtn-block {

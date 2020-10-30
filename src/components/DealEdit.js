@@ -85,13 +85,14 @@ class DealEdit extends React.Component {
           </div>
           <div className="form-group">
             <label htmlFor="message">Message: </label>
-            <input 
+            <textarea 
               type="text"
               name="message"
               className="form-control"
               placeholder="Message"
+              rows="3"
               ref={input => this.message = input} 
-            />
+            ></textarea>
           </div>
           <div className="form-group">
             <label htmlFor="imageUrl">Image: </label>

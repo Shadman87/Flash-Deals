@@ -5,7 +5,7 @@ import firestore from './firestore';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content"; 
 
-export default (id, title, message, imageFile, category, date, time, dateInMilli) => {
+export default (id, title, message, subMessage, imageFile, category, date, time, dateInMilli) => {
   const ref = firebase.storage().ref();
   const MySwal = withReactContent(Swal);
   MySwal.showLoading();
@@ -22,8 +22,9 @@ export default (id, title, message, imageFile, category, date, time, dateInMilli
         .doc(id)
         .update({
           id: id, 
-          title: title, 
-          message: message, 
+          title: title,
+          message: message,
+          subMessage: subMessage,
           imageUrl: url, 
           category: category,
           date: date, 

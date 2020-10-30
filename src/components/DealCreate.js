@@ -8,8 +8,18 @@ import firestoreSetData from '../api/firestoreSetData';
 import authListener from '../api/authListener';
 
 class DealCreate extends React.Component {
+  state = {
+    file: null, 
+    display: 'none'
+  };
   componentDidMount () {
     authListener(); 
+  }
+  handleChange = (event) => {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0]),
+      display: 'block'
+    }); 
   }
 
   addDeal = (e) => {
@@ -32,7 +42,6 @@ class DealCreate extends React.Component {
     if(!imageFile || title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
       alert("Form can't be empty"); 
     } else {
-      
       firestoreSetData(id, title, message, subMessage, imageFile, category, date, time, dateInMilli)
       this.formReset(); 
     }
@@ -92,7 +101,14 @@ class DealCreate extends React.Component {
               name="imageFile"
               className="form-control-file"
               placeholder="Image URL"
+              onChange={this.handleChange}
               ref={input => this.imageFile = input }
+            />
+            <img 
+              src={this.state.file} 
+              alt=""
+              className="img-preview mt-3 mb-3"
+              style={{display: `${this.state.display}`}}  
             />
           </div>
           <div className="form-group">
@@ -105,7 +121,6 @@ class DealCreate extends React.Component {
               <option value="upcoming">Upcoming</option>
             </select>
           </div>
-
           <div className="form-group">
             <label htmlFor="date">Date:</label>
             <input 

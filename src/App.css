@@ -191,6 +191,12 @@ img {
   color: white;
   background-color: #cb0098;
 }
+.img-preview {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+}
+
 /********* DealEdit.js ******/
 
 /********* DealEdit.js *******/

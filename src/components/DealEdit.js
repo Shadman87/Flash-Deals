@@ -8,9 +8,20 @@ import firestoreGetDoc from '../api/firestoreGetDoc';
 import authListener from '../api/authListener';
 
 class DealEdit extends React.Component {
+  state = {
+    file: null, 
+    display: 'none'
+  };
+  
   componentDidMount () {
     authListener(); 
     this.getData(); 
+  }
+  handleChange = (event) => {
+    this.setState({
+      file: URL.createObjectURL(event.target.files[0]),
+      display: 'block'
+    }); 
   }
   getData() {
     //const id = localStorage.getItem("id"); 
@@ -21,9 +32,14 @@ class DealEdit extends React.Component {
     promise.then((doc) => {
         this.title.value = doc.data().title; 
         this.message.value = doc.data().message;
+        this.subMessage.value = doc.data().subMessage;
         this.category.value = doc.data().category; 
         this.date.value = doc.data().date; 
         this.time.value = doc.data().time;
+        this.setState({
+          file: doc.data().imageUrl,
+          display: 'block'
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -50,14 +66,6 @@ class DealEdit extends React.Component {
       firestoreUpdateData(id, title, message, subMessage, imageFile, category, date, time, dateInMilli)
       this.formReset(); 
     }
-    //Resetting the form 
-    this.title.value = ''; 
-    this.message.value = ''; 
-    this.imageFile.value = '';
-    this.category.value = ''; 
-    this.date.value = ''; 
-    this.time.value = '';
-
   }
   formReset() {
     this.title.value = ''; 
@@ -113,7 +121,14 @@ class DealEdit extends React.Component {
               name="imageFile"
               className="form-control-file"
               placeholder="Image URL"
+              onChange={this.handleChange}
               ref={input => this.imageFile = input }
+            />
+            <img 
+              src={this.state.file} 
+              alt=""
+              className="img-preview mt-3 mb-3"
+              style={{display: `${this.state.display}`}}  
             />
           </div>
           <div className="form-group">
@@ -126,7 +141,6 @@ class DealEdit extends React.Component {
               <option value="upcoming">Upcoming</option>
             </select>
           </div>
-
           <div className="form-group">
             <label htmlFor="date">Date:</label>
             <input 

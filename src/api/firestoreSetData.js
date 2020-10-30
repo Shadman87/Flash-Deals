@@ -5,7 +5,7 @@ import firestore from './firestore';
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content"; 
 
-export default (id, title, message, imageFile, category, date, time, dateInMilli) => {
+export default (id, title, message, subMessage, imageFile, category, date, time, dateInMilli) => {
   
   const MySwal = withReactContent(Swal);
   MySwal.showLoading();
@@ -28,6 +28,7 @@ export default (id, title, message, imageFile, category, date, time, dateInMilli
           id: id, 
           title: title, 
           message: message, 
+          subMessage: subMessage,
           imageUrl: url, 
           category: category,
           date: date, 

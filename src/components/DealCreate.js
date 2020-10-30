@@ -17,6 +17,7 @@ class DealCreate extends React.Component {
     
     const title = this.title.value; 
     const message = this.message.value; 
+    const subMessage = this.subMessage.value; 
     const imageFile = this.imageFile.files[0];
     const category = this.category.value; 
     const date = this.date.value; 
@@ -32,7 +33,7 @@ class DealCreate extends React.Component {
       alert("Form can't be empty"); 
     } else {
       
-      firestoreSetData(id, title, message, imageFile, category, date, time, dateInMilli)
+      firestoreSetData(id, title, message, subMessage, imageFile, category, date, time, dateInMilli)
       this.formReset(); 
     }
      
@@ -71,6 +72,17 @@ class DealCreate extends React.Component {
               placeholder="Message"
               rows="3"
               ref={input => this.message = input} 
+            ></textarea>
+          </div>
+          <div className="form-group">
+            <label htmlFor="subMessage">Sub Message (Optional): </label>
+            <textarea 
+              type="text"
+              name="subMessage"
+              className="form-control"
+              placeholder="Sub Message"
+              rows="3"
+              ref={input => this.subMessage = input} 
             ></textarea>
           </div>
           <div className="form-group">

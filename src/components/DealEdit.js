@@ -132,7 +132,7 @@ class DealEdit extends React.Component {
               ref={input => this.time = input}
             />
           </div>
-          <button type="submit" className="btn btn-info" onClick={this.updateDeal}>Update Deal</button>
+          <button type="submit" className="btn update-deal-btn-lg" onClick={this.updateDeal}>Update Deal</button>
         </form>
       </div>
       </div>

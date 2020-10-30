@@ -111,7 +111,7 @@ class DealCreate extends React.Component {
               ref={input => this.time = input}
             />
           </div>
-          <button type="submit" className="btn btn-info">Add Deal</button>
+          <button type="submit" className="btn add-deal-btn-lg">Add Deal</button>
         </form>
       </div>
       </div>

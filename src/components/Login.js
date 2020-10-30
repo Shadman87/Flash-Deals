@@ -2,6 +2,7 @@ import React from 'react';
 
 
 import "../App.css"; 
+import logo from '../assets/images/logo.png';
 
 import firebaseLogin from '../api/firebaseLogin';
 
@@ -28,8 +29,8 @@ class Login extends React.Component {
   render() {
     return (
       <div className="container">
-        <h1 className="text-center mt-5">
-          Login
+        <h1 className="text-center mt-3">
+          <img src={logo} alt="Logo" className="logo"/>
         </h1>
         <div className="form-div">
           <form onSubmit={this.login}>

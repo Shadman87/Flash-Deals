@@ -11,7 +11,7 @@ const Navbar = () => {
   }
   return (
     <div className="">
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg">
         <div className="container">
         <Link to="/" className="navbar-brand">Flash Deals</Link>
           <div>

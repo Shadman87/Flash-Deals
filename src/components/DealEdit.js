@@ -151,7 +151,7 @@ class DealEdit extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="time">Date:</label>
+            <label htmlFor="time">Time:</label>
             <input 
               type="time"
               name="time"

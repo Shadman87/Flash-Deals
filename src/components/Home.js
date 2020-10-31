@@ -23,7 +23,6 @@ const Home = () => {
   const [filteredDeals, setFilteredDeals] = useState([])
   //Use Effect
   useEffect(() => {
-		
     const fetchDeals = async () =>{
       //Getting data from firestore. 
       const data = await firestoreGetData(); 
@@ -49,16 +48,23 @@ const Home = () => {
             deal.data().category.toLowerCase().includes(search.toLowerCase()) );
     });
   const filterHandler = () => {
-    console.log(category);
+    const currentDate = new Date();
+    
+    const currentMilli = Date.now();
+    console.log(deals.map(deal => deal.data().dateInMilli));
+    console.log(currentMilli);
     switch(category) {
       case "all": 
         setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === "upcoming" || deal.data().category.toLowerCase() === "regular" )); 
         break;
       case "upcoming": 
-        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === category));
+        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === category)); // && deal.data().dateInMilli > currentMilli
         break;
-      case "regular": 
-        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === category));
+      case "current": 
+        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === "regular" && deal.data().dateInMilli > currentMilli));
+        break;
+      case "missed": 
+        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === "regular"  && deal.data().dateInMilli <= currentMilli));
         break;
       
     }
@@ -100,8 +106,9 @@ const Home = () => {
                 id="category"
                 defaultValue= { {label: "all", value: "all" }}
               >
-                  <option value="all">all</option>
-                  <option value="regular">Regular</option>
+                  <option value="all">All</option>
+                  <option value="current">Current</option>
+                  <option value="missed">Missed</option>
                   <option value="upcoming">Upcoming</option>
               </select>
             </div>

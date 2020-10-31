@@ -19,9 +19,11 @@ const Home = () => {
   const [deals, setDeals] = useState([]); 
   const [loading, setLoading] = useState(true); 
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState(''); 
+  const [category, setCategory] = useState("all"); 
+  const [filteredDeals, setFilteredDeals] = useState([])
   //Use Effect
-  useEffect (() => {    
+  useEffect(() => {
+		
     const fetchDeals = async () =>{
       //Getting data from firestore. 
       const data = await firestoreGetData(); 
@@ -29,18 +31,52 @@ const Home = () => {
       setLoading(false);
     };
     fetchDeals(); 
+    console.log("data fetched")
     authListener(); 
-  }, []);
+    filterHandler(); 
+    console.log(category);
+	}, [])
+  useEffect (() => {    
+    filterHandler();
+  }, [category]);
+
+  const searchFilteredDeals = filteredDeals.filter(deal => {
+    return (deal.data().title.toLowerCase().includes(search.toLowerCase()) ||
+            deal.data().category.toLowerCase().includes(search.toLowerCase()) );
+    });
+  const searchedDeals = deals.filter(deal => {
+    return (deal.data().title.toLowerCase().includes(search.toLowerCase()) ||
+            deal.data().category.toLowerCase().includes(search.toLowerCase()) );
+    });
+  const filterHandler = () => {
+    console.log(category);
+    switch(category) {
+      case "all": 
+        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === "upcoming" || deal.data().category.toLowerCase() === "regular" )); 
+        break;
+      case "upcoming": 
+        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === category));
+        break;
+      case "regular": 
+        setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === category));
+        break;
+      
+    }
+  }
+  
 
   const deleteBtnClick = (id) => {
     console.log("deleteButton clicked!", id);
     firestoreDeleteData(id);
   }
+  const categoryHandler = (e) => {
+    setCategory(e.target.value);
+  }
   
-  const filteredDeals = deals.filter(deal => {
-    return (deal.data().title.toLowerCase().includes(search.toLowerCase()) ||
-            deal.data().category.toLowerCase().includes(search.toLowerCase()));
-  })
+  
+  
+  
+   
   if(loading) {
     return (
       <div>
@@ -55,34 +91,78 @@ const Home = () => {
       <div>
         <Navbar setSearch={setSearch}/>
         <div className="container">
-          <div className="search-div mt-3">
-            
+          <div className="category-div mt-3 ml-auto">
+            <div className="form-group">
+              <select 
+                onChange={categoryHandler}
+                className="custom-select" 
+                name="category" 
+                id="category"
+                defaultValue= { {label: "all", value: "all" }}
+              >
+                  <option value="all">all</option>
+                  <option value="regular">Regular</option>
+                  <option value="upcoming">Upcoming</option>
+              </select>
+            </div>
           </div>
-          <div className="row mb-5">
-            {filteredDeals.map(doc => (
-              <div key={doc.id} className="col-md-4 mt-5">
-                <Link to={`/deals/edit/${doc.id}`}>
-                  <div className="card">  
-                    <div className="content">
-                      <img src={doc.data().imageUrl} className="card-img-top" alt=""/>
-                      <div className="title-block">
-                        <h6>{doc.data().title}</h6>
+          {searchFilteredDeals.length ? 
+            (
+              <div className="row mb-5">
+                {searchFilteredDeals.map(doc => (
+                  <div key={doc.id} className="col-md-4 mt-5">
+                    <Link to={`/deals/edit/${doc.id}`}>
+                      <div className="card">  
+                        <div className="content">
+                          <img src={doc.data().imageUrl} className="card-img-top" alt=""/>
+                          <div className="title-block">
+                            <h6>{doc.data().title}</h6>
+                          </div>
+                          <div className="category-block">
+                            <h6>{doc.data().category}</h6>
+                          </div>
+                          <div className="deleteBtn-block" onClick={() => deleteBtnClick(doc.id)}>
+                            <i className="fa fa-trash"/>
+                          </div>
+                          <div className="timer-block">
+                            <Countdown date={doc.data().date} time={doc.data().time} />
+                          </div>
+                        </div>
                       </div>
-                      <div className="category-block">
-                        <h6>{doc.data().category}</h6>
-                      </div>
-                      <div className="deleteBtn-block" onClick={() => deleteBtnClick(doc.id)}>
-                        <i className="fa fa-trash"/>
-                      </div>
-                      <div className="timer-block">
-                        <Countdown date={doc.data().date} time={doc.data().time} />
-                      </div>
-                    </div>
+                    </Link>
                   </div>
-                </Link>
+                ))}
               </div>
-            ))}
-          </div>
+            ) : 
+            (
+              <div className="row mb-5">
+                {searchedDeals.map(doc => (
+                  <div key={doc.id} className="col-md-4 mt-5">
+                    <Link to={`/deals/edit/${doc.id}`}>
+                      <div className="card">  
+                        <div className="content">
+                          <img src={doc.data().imageUrl} className="card-img-top" alt=""/>
+                          <div className="title-block">
+                            <h6>{doc.data().title}</h6>
+                          </div>
+                          <div className="category-block">
+                            <h6>{doc.data().category}</h6>
+                          </div>
+                          <div className="deleteBtn-block" onClick={() => deleteBtnClick(doc.id)}>
+                            <i className="fa fa-trash"/>
+                          </div>
+                          <div className="timer-block">
+                            <Countdown date={doc.data().date} time={doc.data().time} />
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                  </div>
+                ))}
+              </div>
+            )
+          }
+          
         </div>
       </div>
     );

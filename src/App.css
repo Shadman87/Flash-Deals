@@ -158,10 +158,10 @@ img {
   display: flex;
   gap: 10px;
 }
-.search-div {
-  width: 40%;
+.category-div {
+  width: 30%;
 }
-.search-div input {
+.category-div input {
   border: 1px solid #5a1eb9;
 }
 

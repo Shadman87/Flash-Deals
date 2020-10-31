@@ -5,10 +5,13 @@ import firebaseLogout from '../api/firebaseLogout';
 
 import '../App.css'; 
 
-const Navbar = () => {
+const Navbar = ({ setSearch }) => {
   
   const logout = () => {
     firebaseLogout();
+  }
+  const searchHandler = (e) => {
+    setSearch(e.target.value);
   }
   return (
     <div className="">
@@ -20,7 +23,14 @@ const Navbar = () => {
           </Link>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
-
+              <li className="nav-item">
+                <input 
+                  className="form-control mr-sm-2" 
+                  type="search" 
+                  placeholder="Search" 
+                  onChange={searchHandler}
+                />
+              </li>
             </ul>
             <ul className="navbar-nav">
               

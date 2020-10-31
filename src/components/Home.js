@@ -18,7 +18,8 @@ const Home = () => {
   //States 
   const [deals, setDeals] = useState([]); 
   const [loading, setLoading] = useState(true); 
-  const [search, setSearch] = useState(''); 
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState(''); 
   //Use Effect
   useEffect (() => {    
     const fetchDeals = async () =>{
@@ -43,7 +44,7 @@ const Home = () => {
   if(loading) {
     return (
       <div>
-        <Navbar />
+        <Navbar setSearch={setSearch} />
         <div className="loader">
           <BounceLoader size={100} />
         </div>
@@ -52,15 +53,10 @@ const Home = () => {
   } else {
     return (
       <div>
-        <Navbar />
+        <Navbar setSearch={setSearch}/>
         <div className="container">
           <div className="search-div mt-3">
-            <input 
-              class="form-control mr-sm-2" 
-              type="search" 
-              placeholder="Search" 
-              onChange={e => setSearch(e.target.value)}
-              />
+            
           </div>
           <div className="row mb-5">
             {filteredDeals.map(doc => (

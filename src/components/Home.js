@@ -30,26 +30,31 @@ const Home = () => {
       setLoading(false);
     };
     fetchDeals(); 
-    console.log("data fetched")
     authListener(); 
     filterHandler(); 
-    console.log(category);
+    // eslint-disable-next-line
 	}, [])
   useEffect (() => {    
+    // eslint-disable-next-line
     filterHandler();
+    // eslint-disable-next-line
   }, [category]);
 
+  //Search filter for category based items
+  //(When category is selected)
   const searchFilteredDeals = filteredDeals.filter(deal => {
     return (deal.data().title.toLowerCase().includes(search.toLowerCase()) ||
             deal.data().category.toLowerCase().includes(search.toLowerCase()) );
     });
+
+  //Search filter for all items
   const searchedDeals = deals.filter(deal => {
     return (deal.data().title.toLowerCase().includes(search.toLowerCase()) ||
             deal.data().category.toLowerCase().includes(search.toLowerCase()) );
     });
+  
+  // Filter for category selection
   const filterHandler = () => {
-    const currentDate = new Date();
-    
     const currentMilli = Date.now();
     console.log(deals.map(deal => deal.data().dateInMilli));
     console.log(currentMilli);
@@ -66,23 +71,23 @@ const Home = () => {
       case "missed": 
         setFilteredDeals(deals.filter(deal => deal.data().category.toLowerCase() === "regular"  && deal.data().dateInMilli <= currentMilli));
         break;
-      
+      default: 
+        setFilteredDeals(deals);
+        break;
     }
   }
   
-
+  //Delete Button handler for each card
   const deleteBtnClick = (id) => {
-    console.log("deleteButton clicked!", id);
     firestoreDeleteData(id);
   }
+
+  //Category selection handler
   const categoryHandler = (e) => {
     setCategory(e.target.value);
   }
-  
-  
-  
-  
-   
+
+  //Show loader while fetching data from firestore
   if(loading) {
     return (
       <div>
@@ -92,7 +97,7 @@ const Home = () => {
         </div>
       </div>
     )
-  } else {
+  } else { // Data fetched completed
     return (
       <div>
         <Navbar setSearch={setSearch}/>
@@ -113,9 +118,12 @@ const Home = () => {
               </select>
             </div>
           </div>
+
+          
           {searchFilteredDeals.length ? 
             (
               <div className="row mb-5">
+                {/* List of items when any specific cateogry is selected */}
                 {searchFilteredDeals.map(doc => (
                   <div key={doc.id} className="col-md-4 mt-5">
                     <Link to={`/deals/edit/${doc.id}`}>
@@ -143,6 +151,7 @@ const Home = () => {
             ) : 
             (
               <div className="row mb-5">
+                {/* List of items when any  cateogry is not selected */}
                 {searchedDeals.map(doc => (
                   <div key={doc.id} className="col-md-4 mt-5">
                     <Link to={`/deals/edit/${doc.id}`}>

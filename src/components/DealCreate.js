@@ -1,16 +1,23 @@
 import React from 'react'; 
 import "../App.css"; 
-
-
 import Navbar from './Navbar';
 
+import validationAlert from '../helperFunctions/validationAlert';
 import firestoreSetData from '../api/firestoreSetData';
 import authListener from '../api/authListener';
+
 
 class DealCreate extends React.Component {
   state = {
     file: null, 
-    display: 'none'
+    display: 'none',
+    titleError: "", 
+    messageError: '',
+    subMessageError: '', 
+    imageFileError: '',
+    categoryError: '',
+    dateError: '', 
+    timeError: '',
   };
   componentDidMount () {
     authListener(); 
@@ -20,6 +27,51 @@ class DealCreate extends React.Component {
       file: URL.createObjectURL(event.target.files[0]),
       display: 'block'
     }); 
+  }
+  validate = (title, message, subMessage, imageFile, category, date, time) =>{
+    if(title.length < 4) {
+      this.setState({
+        titleError: "Title's length must be more than 3",
+      }); 
+      validationAlert("Title's length must be more than 3"); 
+      return false;
+    } 
+    if(message.length < 4) {
+      this.setState({
+        messageError: "Message's length must be more than 3",
+      }); 
+      validationAlert("Message's length must be more than 3")
+      return false;
+    }
+    if(!imageFile) {
+      this.setState({
+        imageFileError: "Image Field is empty",
+      }); 
+      validationAlert("Image Field is empty")
+      return false;
+    }
+    if(category === '') {
+      this.setState({
+        categoryError: "Category needs to be selected",
+      });
+      validationAlert("Category needs to be selected") 
+      return false;
+    }
+    if(date === '') {
+      this.setState({
+        dateError: "Date can't be empty",
+      }); 
+      validationAlert("Date can't be empty"); 
+      return false;
+    }
+    if(time === '') {
+      this.setState({
+        timeError: "Time can't be empty",
+      }); 
+      validationAlert("Time can't be empty"); 
+      return false;
+    }
+    return true; 
   }
 
   addDeal = (e) => {
@@ -38,12 +90,13 @@ class DealCreate extends React.Component {
     //Generating ID;
     var d = new Date(); 
     var id = Date.parse(d).toString();
+    const isValid = this.validate(title, message, subMessage, imageFile, category, date, time); 
 
-    if(!imageFile || title === '' || message === '' || category === '' || date === '' || time === '' || dateInMilli === '') {
-      alert("Form can't be empty"); 
-    } else {
+    if(isValid) {
       firestoreSetData(id, title, message, subMessage, imageFile, category, date, time, dateInMilli)
       this.formReset(); 
+    } else {
+      //validationAlert(); 
     }
      
   }
@@ -71,7 +124,9 @@ class DealCreate extends React.Component {
               placeholder="Title"
               ref={input => this.title = input}
             />
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.titleError}</div>
           </div>
+          
           <div className="form-group">
             <label htmlFor="message">Message: </label>
             <textarea 
@@ -82,6 +137,7 @@ class DealCreate extends React.Component {
               rows="3"
               ref={input => this.message = input} 
             ></textarea>
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.messageError}</div>
           </div>
           <div className="form-group">
             <label htmlFor="subMessage">Sub Message (Optional): </label>
@@ -93,6 +149,7 @@ class DealCreate extends React.Component {
               rows="3"
               ref={input => this.subMessage = input} 
             ></textarea>
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.subMessageError}</div>
           </div>
           <div className="form-group">
             <label htmlFor="imageUrl">Image: </label>
@@ -110,6 +167,7 @@ class DealCreate extends React.Component {
               className="img-preview mt-3 mb-3"
               style={{display: `${this.state.display}`}}  
             />
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.imageFileError}</div>
           </div>
           <div className="form-group">
             <label htmlFor="category">Category: </label>
@@ -120,6 +178,7 @@ class DealCreate extends React.Component {
               <option value="regular">Regular</option>
               <option value="upcoming">Upcoming</option>
             </select>
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.categoryError}</div>
           </div>
           <div className="form-group">
             <label htmlFor="date">Date:</label>
@@ -129,6 +188,7 @@ class DealCreate extends React.Component {
               className="form-control"
               ref={input => this.date = input}
             />
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.dateError}</div>
           </div>
           <div className="form-group">
             <label htmlFor="time">Time:</label>
@@ -138,6 +198,7 @@ class DealCreate extends React.Component {
               className="form-control"
               ref={input => this.time = input}
             />
+            <div style={{ fontSize: 14, color: 'red'}}>{this.state.timeError}</div>
           </div>
           <button type="submit" className="btn add-deal-btn-lg">Add Deal</button>
         </form>

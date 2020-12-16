@@ -1,12 +1,22 @@
-import firebase from 'firebase';
-import firestore from './firestore';
+import firebase from "firebase";
+import firestore from "./firestore";
 
 //Importing SweetAlert
 import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content"; 
+import withReactContent from "sweetalert2-react-content";
 
-export default (id, title, message, subMessage, imageFile, category, date, time, dateInMilli) => {
-  
+export default (
+  id,
+  title,
+  message,
+  subMessage,
+  imageFile,
+  category,
+  type,
+  date,
+  time,
+  dateInMilli
+) => {
   const MySwal = withReactContent(Swal);
   MySwal.showLoading();
   const ref = firebase.storage().ref();
@@ -14,43 +24,45 @@ export default (id, title, message, subMessage, imageFile, category, date, time,
   if (imageFile) {
     var fileName = id;
     const metadata = {
-        contentType: imageFile.type,
+      contentType: imageFile.type,
     };
     const task = ref.child(fileName).put(imageFile, metadata);
-    task.then((snapshot) => snapshot.ref.getDownloadURL()).then((url) => {
-      //alert("Image Upload Successful");
-      console.log(url);
-      
-      firestore
-        .collection("Deals")
-        .doc(id)
-        .set({
-          id: id, 
-          title: title, 
-          message: message, 
-          subMessage: subMessage,
-          imageUrl: url, 
-          category: category,
-          date: date, 
-          time: time, 
-          dateInMilli: dateInMilli
-        })
-        .then(() => {
-          MySwal.fire({
-            icon: "success",
-            title: "Data Saved!",
-            confirmButtonText: "Okay",
+    task
+      .then((snapshot) => snapshot.ref.getDownloadURL())
+      .then((url) => {
+        //alert("Image Upload Successful");
+        console.log(url);
+
+        firestore
+          .collection("Deals")
+          .doc(id)
+          .set({
+            id: id,
+            title: title,
+            message: message,
+            subMessage: subMessage,
+            imageUrl: url,
+            category: category,
+            type: type,
+            date: date,
+            time: time,
+            dateInMilli: dateInMilli,
           })
           .then(() => {
-            window.location.assign('/');
+            MySwal.fire({
+              icon: "success",
+              title: "Data Saved!",
+              confirmButtonText: "Okay",
+            }).then(() => {
+              window.location.assign("/");
+            });
+          })
+          .catch((error) => {
+            console.log(error);
           });
-        })
-        .catch((error) => {
-          console.log(error); 
-        }); 
-    });
+      });
   } else {
     alert("Image needs to be selected!");
-    window.location.reload(); 
-  } 
-}
+    window.location.reload();
+  }
+};

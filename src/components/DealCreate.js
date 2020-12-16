@@ -5,6 +5,7 @@ import Navbar from "./Navbar";
 import validationAlert from "../helperFunctions/validationAlert";
 import firestoreSetData from "../api/firestoreSetData";
 import authListener from "../api/authListener";
+import firebaseDb from "../api/firebaseDb";
 
 class DealCreate extends React.Component {
   state = {
@@ -18,9 +19,20 @@ class DealCreate extends React.Component {
     typeError: "",
     dateError: "",
     timeError: "",
+    types: [],
   };
   componentDidMount() {
     authListener();
+    this.getType();
+  }
+  async getType() {
+    await firebaseDb.ref("Types").on("value", (snapshot) => {
+      let allTypes = [];
+      snapshot.forEach((snap) => {
+        allTypes.push(snap.val());
+      });
+      this.setState({ types: allTypes });
+    });
   }
   handleChange = (event) => {
     this.setState({
@@ -229,13 +241,25 @@ class DealCreate extends React.Component {
             </div>
             <div className="form-group">
               <label htmlFor="type">Type: </label>
-              <select
+              {/* <select
                 className="custom-select"
                 name="type"
                 ref={(input) => (this.type = input)}
               >
                 <option value="mobile">Mobile</option>
                 <option value="watch">Watch</option>
+              </select> */}
+              <select
+                className="custom-select"
+                defaultValue={this.state.types[0]}
+                name="type"
+                ref={(input) => (this.type = input)}
+              >
+                {this.state.types.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
               </select>
               <div style={{ fontSize: 14, color: "red" }}>
                 {this.state.typeError}

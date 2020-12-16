@@ -6,15 +6,27 @@ import Navbar from "./Navbar";
 import firestoreUpdateData from "../api/firestoreUpdateData";
 import firestoreGetDoc from "../api/firestoreGetDoc";
 import authListener from "../api/authListener";
+import firebaseDb from "../api/firebaseDb";
 
 class DealEdit extends React.Component {
   state = {
     file: null,
     display: "none",
+    types: [],
   };
   componentDidMount() {
     authListener();
     this.getData();
+    this.getType();
+  }
+  async getType() {
+    await firebaseDb.ref("Types").on("value", (snapshot) => {
+      let allTypes = [];
+      snapshot.forEach((snap) => {
+        allTypes.push(snap.val());
+      });
+      this.setState({ types: allTypes });
+    });
   }
   handleChange = (event) => {
     this.setState({
@@ -170,8 +182,11 @@ class DealEdit extends React.Component {
                 name="type"
                 ref={(input) => (this.type = input)}
               >
-                <option value="mobile">Mobile</option>
-                <option value="watch">Watch</option>
+                {this.state.types.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
+                ))}
               </select>
               <div style={{ fontSize: 14, color: "red" }}>
                 {this.state.typeError}
